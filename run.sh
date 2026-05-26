@@ -25,3 +25,19 @@ run () {
         flask run -p $1
     fi
 }
+
+docker-local-up () {
+    docker compose -f docker-compose.local.yml up -d --build
+}
+
+docker-local-down () {
+    docker compose -f docker-compose.local.yml down
+}
+
+podman-local-up () {
+    podman compose -f docker-compose.local.yml up -d --build
+}
+
+podman-local-down () {
+    podman compose -f docker-compose.local.yml down
+}

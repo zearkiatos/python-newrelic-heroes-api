@@ -24,3 +24,19 @@ if "%~1"=="" (
     flask run -p %1
 )
 exit /b 0
+
+:docker-local-up
+docker compose -f docker-compose.local.yml up -d --build
+exit /b 0
+
+:docker-local-down
+docker compose -f docker-compose.local.yml down
+exit /b 0
+
+:podman-local-up
+podman compose -f docker-compose.local.yml up -d --build
+exit /b 0
+
+:podman-local-down
+podman compose -f docker-compose.local.yml down
+exit /b 0

@@ -27,3 +27,19 @@ function Run {
         flask run
     }
 }
+
+function DockerLocalUp {
+    docker compose -f docker-compose.local.yml up -d --build
+}
+
+function DockerLocalDown {
+    docker compose -f docker-compose.local.yml down
+}
+
+function PodmanLocalUp {
+    podman compose -f docker-compose.local.yml up -d --build
+}
+
+function PodmanLocalDown {
+    podman compose -f docker-compose.local.yml down
+}

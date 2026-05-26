@@ -3,20 +3,19 @@ FROM alpine:3.14
 RUN apk add py3-pip \
     && pip install --upgrade pip
 
+RUN addgroup -S appgroup -g 10001 && adduser -S -D -H -u 10001 -G appgroup appuser
+
 WORKDIR /app
-COPY . /app/
+COPY --chown=appuser:appgroup . /app/
     
-RUN pip install -r src/requirements.txt
+RUN pip install -r requirements.txt
 
 EXPOSE 5000
 
 CMD ["python3", "src/application.py"]
 
 RUN pip install newrelic
-ENV NEW_RELIC_APP_NAME="docker"
-ENV NEW_RELIC_LOG=stdout
-ENV NEW_RELIC_DISTRIBUTED_TRACING_ENABLED=true
-ENV NEW_RELIC_LICENSE_KEY=c74aef8d0f4a287c87f5cab9ec0c8ffe03bcNRAL
-ENV NEW_RELIC_LOG_LEVEL=info
+
+USER appuser
 
 ENTRYPOINT ["newrelic-admin", "run-program"]
